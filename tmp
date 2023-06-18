@@ -1,0 +1,41 @@
+import matplotlib.pyplot as plt
+
+data = []
+with open('data.txt', 'r') as file:
+    for line in file:
+        line = line.strip().split(' ')
+        cache_size = int(line[0])
+        block_size = int(line[1])
+        associativity = int(line[2])
+        miss_rate = float(line[5])
+        data.append((cache_size, block_size, associativity, miss_rate))
+
+
+cache_sizes = [d[0] for d in data]
+block_sizes = [d[1] for d in data]
+associativities = [d[2] for d in data]
+miss_rates = [d[3] for d in data]
+
+plt.figure(figsize=(8, 6))
+plt.scatter(associativities, miss_rates, c='blue')
+plt.xlabel('Associativity')
+plt.ylabel('Miss Rate')
+plt.title('Miss Rate vs. Associativity')
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8, 6))
+plt.scatter(cache_sizes, miss_rates, c='red')
+plt.xlabel('Cache Size (bytes)')
+plt.ylabel('Miss Rate')
+plt.title('Miss Rate vs. Cache Size')
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8, 6))
+plt.scatter(block_sizes, miss_rates, c='green')
+plt.xlabel('Block Size (bytes)')
+plt.ylabel('Miss Rate')
+plt.title('Miss Rate vs. Block Size')
+plt.grid(True)
+plt.show()
